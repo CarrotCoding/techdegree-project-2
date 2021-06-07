@@ -17,6 +17,7 @@ PLAYERS = [{
         'height': '40 inches'
     },
     {   'name': 'Sammy Adams',
+        'guardians': 'Jeff Adams and Gary Adams',
         'experience': 'NO',
         'height': '45 inches'
     },
