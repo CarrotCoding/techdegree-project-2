@@ -1,11 +1,10 @@
 import constants
 import copy
+import time
 
 
 def show_menu():
-    print("THE BASKETBALL TEAM CREATOR TOOL")
-    print("VERSION 0.1\n")
-    print("*** MENU ***\n")
+    print("*** MENU ***")
     print("""
 Please make your choice:\n
 A: Display Teams
@@ -27,32 +26,32 @@ def show_submenu():
 def team_selection():
     while True:
         team_choice = input("Enter your team choice:    ")
-        exit_program = "\nPlease select another team for statistics or exit by typing 'EXIT'"
         try:
             if team_choice.lower() == 'a' or team_choice.lower() == constants.TEAMS[0].lower():
-                print("\n---TEAM PANTHERS STATISTICS---")
+                print("\n---TEAM PANTHERS STATISTICS---\n")
                 show_team_statistics(team_panthers)
-                #add call logic for the team
-                print(exit_program)
-                continue
+                time.sleep(3)
+                show_menu()
+                user_input()
+                break
+
 
             elif team_choice.lower() == 'b' or team_choice.lower() == constants.TEAMS[1].lower():
-                print("\n---TEAM BANDITS STATISTICS---")
+                print("\n---TEAM BANDITS STATISTICS---\n")
                 show_team_statistics(team_bandits)
-                #add call logic for the team
-                print(exit_program)
-                continue
+                time.sleep(3)
+                show_menu()
+                user_input()
+                break
 
             elif team_choice.lower() == 'c' or team_choice.lower() == constants.TEAMS[2].lower():
-                print("\n---TEAM WARRIORS STATISTICS---")
+                print("\n---TEAM WARRIORS STATISTICS---\n")
                 show_team_statistics(team_warriors)
-                #add call logic for the team
-                print(exit_program)
-                continue
-
-            elif team_choice.lower() == 'exit':
-                print("\nThank you for using the basketball team creator tool!\n")
+                time.sleep(3)
+                show_menu()
+                user_input()
                 break
+
             else:
                 raise ValueError
                 continue
@@ -84,7 +83,7 @@ def user_input():
                 show_submenu()
                 break
 
-            elif user_choice.lower() == 'b':
+            elif user_choice.lower() == 'b' or user_choice.lower() == 'quit':
                 print('Thank you for trying out the application')
                 break
             else:
@@ -138,12 +137,12 @@ def average_height(team):
 def number_of_experienced_players(team):
     #https://www.kite.com/python/answers/how-to-count-the-number-of-true-booleans-in-a-list-in-python#:~:text=Use%20sum()%20to%20count,True%20booleans%20in%20the%20list.
     team_number_of_experienced_players = sum(player['experience'] == True for player in team)
-    return str(team_number_of_experienced_players)
+    return team_number_of_experienced_players
 
 
 def number_of_inexperienced_players(team):
     team_number_of_inexperienced_players = sum(player['experience'] == False for player in team)
-    return str(team_number_of_inexperienced_players)
+    return team_number_of_inexperienced_players
 
 
 def names(team):
@@ -162,11 +161,14 @@ def show_team_statistics(team):
     print("The players in the team are:\n")
     names(team)
     print()
-    print("The team has {} experienced players".format(number_of_experienced_players(team)))
-    print("The team has {} inexperienced players".format(number_of_inexperienced_players(team)))
+    print("Total players: {}".format(number_of_experienced_players(team)+number_of_inexperienced_players(team)))
+    print("---------------------------------")
+    print("{} experienced players".format(number_of_experienced_players(team)))
+    print("{} inexperienced players".format(number_of_inexperienced_players(team)))
     print("The team average height is {}.".format(average_height(team)))
     print("\nThe guardians for the team are:\n")
     guardians(team)
+    print()
 
 
 
@@ -174,43 +176,11 @@ team_panthers = []
 team_bandits = []
 team_warriors = []
 
-players_copy = copy.deepcopy(constants.PLAYERS)
-
 if __name__ == '__main__':
+    players_copy = copy.deepcopy(constants.PLAYERS)
     clean_data(players_copy)
     balance_teams(players_copy)
+    print("THE BASKETBALL TEAM CREATOR TOOL")
+    print("VERSION 0.3\n")
     show_menu()
     user_input()
-
-
-
-#create an application that gives an overview option to:
-#    Check the current team stats
-#        Show the current teams
-#        Loop back to start of application
-#    Quit
-
-
-#create 3 empty team lists
-#Panthers
-#Bandits
-#Warriors
-
-#create function to:
-#    read the player data while not changing it
-#    store it to a new collection with
-#        height set as an integer
-#        experience set as a boolean
-
-#create a balance_teams function to:
-#    fill the 3 teams with an equal amount of players
-#        ensure that each team has equal experienced and inexperienced
-#    print out the 3 different teams in a readable manner
-#        include team's name as a string
-#        total players on that team
-#            divided by experienced & inexperienced
-#        the player names as strings separated by commas
-#            (not as a list object but as a flattened string)
-#        the guardians of these players
-#            (when a player has 2 guardians it should be "name and name")
-#        display the average height of the team
