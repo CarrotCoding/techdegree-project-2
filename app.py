@@ -27,21 +27,32 @@ def show_submenu():
 def team_selection():
     while True:
         team_choice = input("Enter your team choice:    ")
+        exit_program = "\nPlease select another team for statistics or exit by typing 'EXIT'"
         try:
             if team_choice.lower() == 'a' or team_choice.lower() == constants.TEAMS[0].lower():
-                print("This choice works")
+                print("\n---TEAM PANTHERS STATISTICS---")
+                show_team_statistics(team_panthers)
                 #add call logic for the team
+                print(exit_program)
                 continue
 
             elif team_choice.lower() == 'b' or team_choice.lower() == constants.TEAMS[1].lower():
-                print("This choice also works")
+                print("\n---TEAM BANDITS STATISTICS---")
+                show_team_statistics(team_bandits)
                 #add call logic for the team
+                print(exit_program)
                 continue
 
             elif team_choice.lower() == 'c' or team_choice.lower() == constants.TEAMS[2].lower():
-                print('And your final choice works as well!')
+                print("\n---TEAM WARRIORS STATISTICS---")
+                show_team_statistics(team_warriors)
                 #add call logic for the team
+                print(exit_program)
                 continue
+
+            elif team_choice.lower() == 'exit':
+                print("\nThank you for using the basketball team creator tool!\n")
+                break
             else:
                 raise ValueError
                 continue
@@ -127,37 +138,49 @@ def average_height(team):
 def number_of_experienced_players(team):
     #https://www.kite.com/python/answers/how-to-count-the-number-of-true-booleans-in-a-list-in-python#:~:text=Use%20sum()%20to%20count,True%20booleans%20in%20the%20list.
     team_number_of_experienced_players = sum(player['experience'] == True for player in team)
-    return team_number_of_experienced_players
+    return str(team_number_of_experienced_players)
 
 
 def number_of_inexperienced_players(team):
     team_number_of_inexperienced_players = sum(player['experience'] == False for player in team)
-    return team_number_of_inexperienced_players
+    return str(team_number_of_inexperienced_players)
 
 
 def names(team):
-    team_names = [player['name'] for player in team_panthers]
+    team_names = [player['name'] for player in team]
     print(", ".join(team_names))
 
 
 def guardians(team):
-    team_guardians_list = [player['guardians'] for player in team_panthers]
+    team_guardians_list = [player['guardians'] for player in team]
     #https://careerkarma.com/blog/python-flatten-list/
     team_guardians_flattened = [guardian for guardians in team_guardians_list for guardian in guardians]
     print(", ".join(team_guardians_flattened))
 
 
+def show_team_statistics(team):
+    print("The players in the team are:\n")
+    names(team)
+    print()
+    print("The team has {} experienced players".format(number_of_experienced_players(team)))
+    print("The team has {} inexperienced players".format(number_of_inexperienced_players(team)))
+    print("The team average height is {}.".format(average_height(team)))
+    print("\nThe guardians for the team are:\n")
+    guardians(team)
+
+
+
 team_panthers = []
 team_bandits = []
 team_warriors = []
+
 players_copy = copy.deepcopy(constants.PLAYERS)
 
-clean_data(players_copy)
-balance_teams(players_copy)
-
-
-show_menu()
-user_input()
+if __name__ == '__main__':
+    clean_data(players_copy)
+    balance_teams(players_copy)
+    show_menu()
+    user_input()
 
 
 
