@@ -33,8 +33,8 @@ def user_input():
                 continue
         except:
             print("""
-    Oh no! It seems you filled in something other than 'A', 'B' or 'HELP'.\n
-    Please try again.
+Oh no! It seems you filled in something other than 'A', 'B' or 'HELP'.\n
+Please try again.
                 """)
 
 
@@ -82,8 +82,8 @@ def team_selection():
                 continue
         except:
             print("""
-    Oh no! It seems you filled in something other than the team name or 'A', 'B', 'C'.\n
-    Please try again.
+Oh no! It seems you filled in something other than the team name or 'A', 'B', 'C'.\n
+Please try again.
                 """)
 
 
