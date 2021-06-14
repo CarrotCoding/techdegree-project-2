@@ -58,21 +58,21 @@ def team_selection():
             if team_choice.lower() == 'a' or team_choice.lower() == constants.TEAMS[0].lower():
                 print("\n---TEAM PANTHERS STATISTICS---\n")
                 show_team_statistics(team_panthers)
-                time.sleep(3)
+                input("Press Enter to continue...")
                 show_menu()
                 user_input()
                 break
             elif team_choice.lower() == 'b' or team_choice.lower() == constants.TEAMS[1].lower():
                 print("\n---TEAM BANDITS STATISTICS---\n")
                 show_team_statistics(team_bandits)
-                time.sleep(3)
+                input("Press Enter to continue...")
                 show_menu()
                 user_input()
                 break
             elif team_choice.lower() == 'c' or team_choice.lower() == constants.TEAMS[2].lower():
                 print("\n---TEAM WARRIORS STATISTICS---\n")
                 show_team_statistics(team_warriors)
-                time.sleep(3)
+                input("Press Enter to continue...")
                 show_menu()
                 user_input()
                 break
