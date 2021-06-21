@@ -42,10 +42,10 @@ def show_submenu():
     #shows the teams of the season with the index changed into capital letters
     print("The Teams of the season are:\n")
 
-    for index, team in enumerate(constants.TEAMS):
-        print(chr(index+65) + "  " f'{team}')
+    for index, team in enumerate(constants.TEAMS, 65):
+        print(chr(index) + "  " f'{team}')
         #using the chr() with thanks to https://www.geeksforgeeks.org/chr-in-python/#:~:text=The%20chr()%20method%20returns,code%20point%20is%20an%20integer.&text=The%20chr()%20method%20takes,point%20is%20num%2C%20an%20integer.
-
+        #this returns the unicode capital letter for the index instead of the number
     print("\nPlease make a choice which team you'd like more info on.")
     team_selection()
 
@@ -99,16 +99,13 @@ By providing "B" as input you'll quit the application
 
 def clean_data(players_copy):
     #the data cleaning function
-    index = 0
     for player in players_copy:
-        players_copy[index]['height'] = int(players_copy[index]['height'][0:2])
-        players_copy[index]['guardians'] = players_copy[index]['guardians'].split(' and ')
-        if players_copy[index]['experience'].lower() == "yes":
-            players_copy[index]['experience'] = True
+        player['height'] = int(player['height'][0:2])
+        player['guardians'] = player['guardians'].split(' and ')
+        if player['experience'].lower() == "yes":
+            player['experience'] = True
         else:
-            players_copy[index]['experience'] = False
-        index += 1
-
+            player['experience'] = False
     return players_copy
 
 
@@ -157,6 +154,7 @@ def names(team):
     print(", ".join(team_names))
 
 
+
 def guardians(team):
     #function for guardian names flattened with comma + space
     team_guardians_list = [player['guardians'] for player in team]
@@ -170,11 +168,11 @@ def show_team_statistics(team):
     print("The players in the team are:\n")
     names(team)
     print()
-    print("Total players: {}".format(number_of_experienced_players(team)+number_of_inexperienced_players(team)))
+    print(f'Total players: {number_of_experienced_players(team)+number_of_inexperienced_players(team)}')
     print("---------------------------------")
-    print("{} experienced players".format(number_of_experienced_players(team)))
-    print("{} inexperienced players".format(number_of_inexperienced_players(team)))
-    print("The team average height is {}.".format(average_height(team)))
+    print(f'{number_of_experienced_players(team)} experienced players')
+    print(f'{number_of_inexperienced_players(team)} inexperienced players')
+    print(f'The team average height is {average_height(team)}')
     print("\nThe guardians for the team are:\n")
     guardians(team)
     print()
